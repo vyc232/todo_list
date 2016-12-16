@@ -1,21 +1,49 @@
-var newEl, newText, listItems; // Declare variables
+//TODO: make input break when max-width reached
 
-var elList  = document.getElementById('list');               // Get list
-var addLink = document.getElementById('add');                   // Get add item button
-var counter = document.getElementById('counter');            // Get item counter
+var elList  = document.getElementById("list");
+var addLink = document.getElementById("add");
+var counter = document.getElementById("counter");
+var listInput = document.getElementById("listInput");
 
-function addItem(e) {                                    // Declare function
-  e.preventDefault();                                    // Prevent link action
-  newEl = document.createElement('li');                  // New <li> element
-  newText = document.createTextNode('New list item');    // New text node
-  newEl.appendChild(newText);                            // Add text to <li>
-  elList.appendChild(newEl);                             // Add <li> to list
+function buttonAdd(e) {
+    e.preventDefault();
+    startUp();
+//    var newEl = document.createElement("li");
+//    var newText = document.createTextNode("enter");
+//    newEl.appendChild(newText);
+//    var childEl = document.getElementById("inputItem");
+//    childEl.parentNode.insertBefore(newEl, childEl);
 }
 
-function updateCount() {                                 // Declare function
-  listItems = elList.getElementsByTagName('li').length;  // Get total of <li>s
-  counter.innerHTML = listItems;                         // Update counter
+function enterAdd(e){
+    if(e.keyCode == 13){
+        //Create new list item
+        var newEl = document.createElement("li");
+        var newText = document.createTextNode(listInput.value);
+        newEl.appendChild(newText);
+        //Add element to the list before input item
+        var childEl = document.getElementById("inputItem");
+        childEl.parentNode.insertBefore(newEl, childEl);
+        //Delete text entered
+        listInput.value = "";
+    }
 }
 
-addLink.addEventListener('click', addItem, false);       // Click on button
-elList.addEventListener('DOMNodeInserted', updateCount, false); // DOM updated
+function removeEmptyElement(e){
+    //TODO: remove empty node, find removeElement() when losing focus
+}
+function updateCount() {
+    var listItems = elList.getElementsByTagName("li").length - 1;
+    counter.innerHTML = listItems;
+}
+
+function startUp() {
+    var input = document.getElementById("listInput");
+    input.focus();
+}
+
+addLink.addEventListener("click", buttonAdd, false);       // Click on button
+elList.addEventListener("DOMNodeInserted", updateCount, false); // DOM updated
+listInput.addEventListener("blue", removeEmptyElement, false); //Removes empty list element
+listInput.addEventListener("keydown", enterAdd, false); //key hit inside input
+window.addEventListener("load", startUp, false);        //Default focus to entering text
