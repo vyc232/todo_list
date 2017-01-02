@@ -33,11 +33,10 @@ li{
 }
 .button{
     float: right;
-    margin-top: 10px;
+    margin-top: 3px;
     margin-right: 100px;
 }
 #add{
-    margin-left: 0%;
     text-decoration: none;
     position: absolute;
     font-size: 20px;
@@ -51,6 +50,4 @@ li{
     border: beige;
     font-size: 14px;
     background-color: beige;
-}
-#listInput:focus, #listInput:hover{
 }
